@@ -262,10 +262,10 @@ export function Example() {
 function ToggleDarkMode() {
   const { colorMode, toggleColorMode } = useColorMode();
   return (
-      <HStack space={230} mt="5">
+      <HStack space={220} mt="5">
           <HStack>
              <Image source={logo}  style={{ width: 38, height: 40 }}/>
-             <Text alignSelf="flex-start" color="gray.700" fontWeight="medium" pt="3" ml="3">EXPO Docs</Text>
+             <Text alignSelf="flex-start" color="gray.700" fontWeight="medium" pt="2" ml="3" fontSize={16}>EXPO Docs</Text>
           </HStack>
             <Switch
                 mt="3"
