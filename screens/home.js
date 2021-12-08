@@ -18,6 +18,7 @@ import {
   Image
 } from "native-base"
 import logo from '../assets/svg/sdk.svg';
+import { auth } from "../firebase";
 
 // Define the config
 const config = {
@@ -39,7 +40,9 @@ export function Example() {
         <ToggleDarkMode />
       <ScrollView  showsVerticalScrollIndicator={false} mt="6">
     <VStack space={4} alignItems="center">
-
+     <Text fontSize={12} fontWeight="medium" alignSelf="self-start">
+           Current User: {auth.currentUser?.email}
+      </Text>
     <Pressable
       onPress={() => {
         console.log("Hello world")
