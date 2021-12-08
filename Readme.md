@@ -7,3 +7,5 @@ The official NativeBase template for [Expo](https://docs.expo.io/)
 ```sh
 expo init my-app --template expo-template-native-base
 ```
+
+- login and register UI (no backend)
