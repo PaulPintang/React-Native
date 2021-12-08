@@ -29,9 +29,11 @@ const config = {
 
 // extend the theme
 export const theme = extendTheme({ config });
-export default function Home({navigation}) {
 
-  const handleSignOut = () =>{
+export default function Home({navigation}) {
+const { colorMode, toggleColorMode } = useColorMode();
+
+ const handleSignOut = () =>{
     auth
     .signOut()
     .then(() => {
@@ -39,6 +41,7 @@ export default function Home({navigation}) {
     })
     .catch(error => alert(error.message));
   }
+ 
   return (
      <NativeBaseProvider>
         <Center
@@ -47,13 +50,39 @@ export default function Home({navigation}) {
             px={4}
             flex={1}
         >
-        <ToggleDarkMode />
+
+        <HStack space={220} mt="5">
+          <HStack>
+             <Image source={logo}  style={{ width: 38, height: 40 }}/>
+              <VStack>
+                <Text  color="gray.700" fontWeight="medium" ml="3" fontSize={16}>EXPO Docs</Text>
+                <Text fontSize={12} fontWeight="medium" ml="3">
+                  User: {auth.currentUser?.email}
+                </Text>
+            </VStack>
+          </HStack>
+            <VStack space={1}>
+              <Switch
+                  isChecked={colorMode === "light" ? true : false}
+                  onToggle={toggleColorMode}
+                  aria-label={
+                  colorMode === "light" ? "switch to dark mode" : "switch to light mode"
+                  }
+              />
+              <Link onClick={handleSignOut} mr="5">
+                  <Text fontSize={12} fontWeight="medium" color="blue.500">
+                    Log Out
+                  </Text>
+              </Link>
+            </VStack>
+      </HStack>
+
       <ScrollView  showsVerticalScrollIndicator={false} mt="6">
     <VStack space={4} alignItems="center">
-     <Text fontSize={12} fontWeight="medium" alignSelf="self-start">
+     {/* <Text fontSize={12} fontWeight="medium" alignSelf="self-start">
            Current User: {auth.currentUser?.email}
-      </Text>
-      <Button onPress={handleSignOut}>Sign out</Button>
+      </Text> */}
+
     <Pressable
       onPress={() => {
         console.log("Hello world")
@@ -271,34 +300,3 @@ export default function Home({navigation}) {
 
   )
 }
-
-// Color Switch Component
-function ToggleDarkMode() {
-  const { colorMode, toggleColorMode } = useColorMode();
-  return (
-      <HStack space={220} mt="5">
-          <HStack>
-             <Image source={logo}  style={{ width: 38, height: 40 }}/>
-             <Text alignSelf="flex-start" color="gray.700" fontWeight="medium" pt="2" ml="3" fontSize={16}>EXPO Docs</Text>
-          </HStack>
-            <Switch
-                mt="3"
-                isChecked={colorMode === "light" ? true : false}
-                onToggle={toggleColorMode}
-                aria-label={
-                colorMode === "light" ? "switch to dark mode" : "switch to light mode"
-                }
-            />
-      </HStack>
-  );
-}
-
-// export default () => {
-//   return (
-//     <NativeBaseProvider>
-//       <Center flex={1} px="3">
-//         <Home />
-//       </Center>
-//     </NativeBaseProvider>
-//   )
-// }
