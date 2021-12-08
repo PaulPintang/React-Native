@@ -8,14 +8,36 @@ import {
   Flex,
   Center,
   NativeBaseProvider,
+  extendTheme,
   VStack,
   Link,
   ScrollView,
   Code,
+  useColorMode,
+  Switch,
+  Image
 } from "native-base"
+import logo from '../assets/svg/sdk.svg';
+
+// Define the config
+const config = {
+  useSystemColorMode: false,
+  initialColorMode: "dark",
+};
+
+// extend the theme
+export const theme = extendTheme({ config });
 export function Example() {
   return (
-      <ScrollView  showsVerticalScrollIndicator={false}>
+     <NativeBaseProvider>
+             <Center
+            _dark={{ bg: "blueGray.900" }}
+            _light={{ bg: "blueGray.50" }}
+            px={4}
+            flex={1}
+        >
+        <ToggleDarkMode />
+      <ScrollView  showsVerticalScrollIndicator={false} mt="6">
     <VStack space={4} alignItems="center">
 
     <Pressable
@@ -29,7 +51,7 @@ export function Example() {
             EXPO
           </Text>
           <Spacer />
-          <Text fontSize={10} color="cyan.100">
+          <Text fontSize={12} color="cyan.100">
            NO.1
           </Text>
         </HStack>
@@ -57,7 +79,7 @@ export function Example() {
             INSTALLATION
           </Text>
           <Spacer />
-          <Text fontSize={10} color="cyan.100">
+          <Text fontSize={12} color="cyan.100">
             NO.2
           </Text>
         </HStack>
@@ -100,7 +122,7 @@ export function Example() {
             CREATE A NEW APP
           </Text>
           <Spacer />
-          <Text fontSize={10} color="cyan.100">
+          <Text fontSize={12} color="cyan.100">
             NO.3
           </Text>
         </HStack>
@@ -145,7 +167,7 @@ export function Example() {
             STARTING DEVELOPMENT SERVER
           </Text>
           <Spacer />
-          <Text fontSize={10} color="cyan.100">
+          <Text fontSize={12} color="cyan.100">
             NO.4
           </Text>
         </HStack>
@@ -156,9 +178,7 @@ export function Example() {
        When you run expo start (or npm start), Expo CLI starts Metro Bundler, which is an HTTP server that compiles the JavaScript code of our app using Babel and serves it to the Expo app. It also pops up Expo Dev Tools, a graphical interface for Expo CLI.
         </Text>
        <Code bg="black">
-           {/* <Text p="1" fontSize={14} color="gray.500">
-              # Create a project named my-app. Select the "blank" template when promted
-           </Text> */}
+         
            <Code bg="gray.400">
             $ expo start
            </Code>
@@ -232,7 +252,31 @@ export function Example() {
     </VStack>
     </VStack>
     </ScrollView>
+    </Center>
+     </NativeBaseProvider>
+
   )
+}
+
+// Color Switch Component
+function ToggleDarkMode() {
+  const { colorMode, toggleColorMode } = useColorMode();
+  return (
+      <HStack space={230} mt="5">
+          <HStack>
+             <Image source={logo}  style={{ width: 38, height: 40 }}/>
+             <Text alignSelf="flex-start" color="gray.700" fontWeight="medium" pt="3" ml="3">EXPO Docs</Text>
+          </HStack>
+            <Switch
+                mt="3"
+                isChecked={colorMode === "light" ? true : false}
+                onToggle={toggleColorMode}
+                aria-label={
+                colorMode === "light" ? "switch to dark mode" : "switch to light mode"
+                }
+            />
+      </HStack>
+  );
 }
 
 export default () => {
