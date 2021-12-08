@@ -5,14 +5,15 @@ import SignUp from '../screens/signup';
 import Home from '../screens/home';
 
 const screens = {
-    Home: {
-        screen: Home
-    },
+  
     Login: {
         screen: Login
     },
     SignUp: {
         screen: SignUp
+    },
+    Home: {
+        screen: Home
     },
     
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Navigator from '../routes/homeStack'
 import {
   Text,
@@ -35,6 +35,17 @@ export default function signup({navigation}) {
         navigation.navigate('Login');
     }
 
+    // Auth
+    const handleSignUp = () => {
+        auth.createUserWithEmailAndPassword(email, password)
+        .then(userCredentials => {
+            const user = userCredentials.user;
+               console.log('Registered with: ', user.email);
+        })
+        .catch(error => alert(error.message))
+
+    }
+
   return (
     <NativeBaseProvider>
       <Center
@@ -43,7 +54,7 @@ export default function signup({navigation}) {
         px={4}
         flex={1}
       >
-        <VStack space={5} alignItems="center">
+        <VStack space={3} alignItems="center">
            <Image source={logo}  style={{ width: 180, height: 190 }}/>
           <Heading size="lg">React Native / EXPO</Heading>
           <HStack space={2} alignItems="center">
@@ -75,7 +86,7 @@ export default function signup({navigation}) {
           <FormControl.Label>Confirm Password</FormControl.Label>
           <Input type="password" />
         </FormControl>
-        <Button mt="2" colorScheme="indigo" style={{width: 300}}>
+        <Button mt="2" colorScheme="indigo" style={{width: 300}} onPress={handleSignUp}>
           Sign up
         </Button>
         <HStack mt="6" justifyContent="center">

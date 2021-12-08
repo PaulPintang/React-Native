@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
   Text,
   Link,
@@ -17,8 +17,7 @@ import {
   Button,
 } from "native-base";
 import logo from '../assets/svg/sdk.svg';
-
-
+import { auth } from "../firebase";
 
 // Define the config
 const config = {
@@ -30,6 +29,22 @@ const config = {
 export const theme = extendTheme({ config });
 
 export default function login({navigation}) {
+    // State
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    // Authentication
+
+
+      const handleSignIn = () => {
+        auth
+         .signInWithEmailAndPassword(email, password)
+         .then(userCredentials => {
+            const user = userCredentials.user;
+            console.log('Logged in with: ', user.email);
+        })
+        .catch(error => alert(error.message))
+      }
 
     // navigate
     const navigateSignUp = () => {
@@ -69,12 +84,18 @@ export default function login({navigation}) {
         </Heading>
 
             <FormControl>
-            <FormControl.Label>Username</FormControl.Label>
-            <Input />
+            <FormControl.Label>Email</FormControl.Label>
+            <Input
+                value={email}
+                onChangeText={text => setEmail(text)}
+            />
             </FormControl>
             <FormControl>
             <FormControl.Label>Password</FormControl.Label>
-            <Input type="password" />
+            <Input type="password"
+                value={password}
+                onChangeText={text => setPassword(text)}
+            />
             <Link
                 _text={{
                 fontSize: "xs",
@@ -87,7 +108,7 @@ export default function login({navigation}) {
                 Forget Password?
             </Link>
             </FormControl>
-            <Button mt="2" colorScheme="indigo" style={{width: 300}} onPress={userLogin}>
+            <Button mt="2" colorScheme="indigo" style={{width: 300}} onPress={handleSignIn}>
             Sign in
             </Button>
             <HStack mt="6" justifyContent="center">
