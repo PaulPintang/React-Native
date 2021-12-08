@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Navigator from '../routes/homeStack'
 import {
   Text,
@@ -17,6 +17,7 @@ import {
   Input,
   Button,
 } from "native-base";
+import { auth } from "../firebase";
 import logo from '../assets/svg/sdk.svg';
 
 // Define the config
@@ -29,6 +30,9 @@ const config = {
 export const theme = extendTheme({ config });
 
 export default function signup({navigation}) {
+    // State
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
         // navigate
     const navigateLogin = () => {
@@ -45,6 +49,15 @@ export default function signup({navigation}) {
         .catch(error => alert(error.message))
 
     }
+
+       useEffect(() => {
+         const unsub = auth.onAuthStateChanged(user => {
+             if(user) {
+                 navigation.replace("Home");
+             }
+         })
+          return unsub
+      }, [])
 
   return (
     <NativeBaseProvider>
@@ -76,11 +89,17 @@ export default function signup({navigation}) {
 
         <FormControl>
           <FormControl.Label>Email</FormControl.Label>
-          <Input />
+          <Input
+              value={email}
+              onChangeText={text => setEmail(text)}
+          />
         </FormControl>
         <FormControl>
           <FormControl.Label>Password</FormControl.Label>
-          <Input type="password" />
+          <Input type="password"
+              value={password}
+              onChangeText={text => setPassword(text)}
+          />
         </FormControl>
          <FormControl>
           <FormControl.Label>Confirm Password</FormControl.Label>

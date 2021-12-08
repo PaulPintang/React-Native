@@ -49,7 +49,7 @@ export default function login({navigation}) {
       useEffect(() => {
          const unsub = auth.onAuthStateChanged(user => {
              if(user) {
-                 navigation.navigate("Home");
+                 navigation.replace("Home");
              }
          })
           return unsub

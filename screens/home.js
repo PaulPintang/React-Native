@@ -15,7 +15,8 @@ import {
   Code,
   useColorMode,
   Switch,
-  Image
+  Image,
+  Button
 } from "native-base"
 import logo from '../assets/svg/sdk.svg';
 import { auth } from "../firebase";
@@ -28,7 +29,16 @@ const config = {
 
 // extend the theme
 export const theme = extendTheme({ config });
-export function Example() {
+export default function Home({navigation}) {
+
+  const handleSignOut = () =>{
+    auth
+    .signOut()
+    .then(() => {
+      navigation.replace("Login")
+    })
+    .catch(error => alert(error.message));
+  }
   return (
      <NativeBaseProvider>
         <Center
@@ -43,6 +53,7 @@ export function Example() {
      <Text fontSize={12} fontWeight="medium" alignSelf="self-start">
            Current User: {auth.currentUser?.email}
       </Text>
+      <Button onPress={handleSignOut}>Sign out</Button>
     <Pressable
       onPress={() => {
         console.log("Hello world")
@@ -282,12 +293,12 @@ function ToggleDarkMode() {
   );
 }
 
-export default () => {
-  return (
-    <NativeBaseProvider>
-      <Center flex={1} px="3">
-        <Example />
-      </Center>
-    </NativeBaseProvider>
-  )
-}
+// export default () => {
+//   return (
+//     <NativeBaseProvider>
+//       <Center flex={1} px="3">
+//         <Home />
+//       </Center>
+//     </NativeBaseProvider>
+//   )
+// }
