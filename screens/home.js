@@ -11,7 +11,7 @@ import {
   VStack,
   Link,
   ScrollView,
-  Code
+  Code,
 } from "native-base"
 export function Example() {
   return (
@@ -171,21 +171,65 @@ export function Example() {
         </Flex>
       </Box>
     </Pressable>
-
+        <VStack textAlign="center" space={3} mb="7">
         <Text mt="2" fontSize={14} fontWeight="medium" color="gray.500">
            Join the Community
           </Text>
-        <Link
+        <HStack space={3}>
+            <Link
                 _text={{
                 color: "indigo.500",
                 fontWeight: "medium",
                 fontSize: "sm",
                 }}
                 href="#"
-                onClick={navigateSignUp}
             >
-                Join the Expo forums
+                Forums
             </Link>
+            <Link
+                _text={{
+                color: "indigo.500",
+                fontWeight: "medium",
+                fontSize: "sm",
+                }}
+                href="#"
+            >
+                Discord
+            </Link>
+            <Link
+                _text={{
+                color: "indigo.500",
+                fontWeight: "medium",
+                fontSize: "sm",
+                }}
+                href="#"
+            >
+               Twitter @expo
+            </Link>
+            <Link
+                _text={{
+                color: "indigo.500",
+                fontWeight: "medium",
+                fontSize: "sm",
+                }}
+                href="#"
+            >
+               Github
+            </Link>
+
+    </HStack>
+      <Link
+                _text={{
+                color: "indigo.500",
+                fontWeight: "medium",
+                fontSize: "sm",
+                }}
+                href="https://docs.expo.dev/"
+                alignSelf="center"
+            >
+               Official Website
+            </Link>
+    </VStack>
     </VStack>
     </ScrollView>
   )
