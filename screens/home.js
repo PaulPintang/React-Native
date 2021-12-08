@@ -30,7 +30,7 @@ export const theme = extendTheme({ config });
 export function Example() {
   return (
      <NativeBaseProvider>
-             <Center
+        <Center
             _dark={{ bg: "blueGray.900" }}
             _light={{ bg: "blueGray.50" }}
             px={4}

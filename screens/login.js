@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {
   Text,
   Link,
@@ -45,6 +45,15 @@ export default function login({navigation}) {
         })
         .catch(error => alert(error.message))
       }
+
+      useEffect(() => {
+         const unsub = auth.onAuthStateChanged(user => {
+             if(user) {
+                 navigation.navigate("Home");
+             }
+         })
+          return unsub
+      }, [])
 
     // navigate
     const navigateSignUp = () => {
