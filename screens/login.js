@@ -36,6 +36,10 @@ export default function login({navigation}) {
         navigation.navigate('SignUp');
     }
 
+    const userLogin = () => {
+        navigation.navigate('Home');
+    }
+
     return (
         <NativeBaseProvider>
         <Center
@@ -83,7 +87,7 @@ export default function login({navigation}) {
                 Forget Password?
             </Link>
             </FormControl>
-            <Button mt="2" colorScheme="indigo" style={{width: 300}}>
+            <Button mt="2" colorScheme="indigo" style={{width: 300}} onPress={userLogin}>
             Sign in
             </Button>
             <HStack mt="6" justifyContent="center">
