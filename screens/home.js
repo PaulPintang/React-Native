@@ -31,7 +31,7 @@ const config = {
 export const theme = extendTheme({ config });
 
 export default function Home({navigation}) {
-const { colorMode, toggleColorMode } = useColorMode();
+
 
  const handleSignOut = () =>{
     auth
@@ -41,6 +41,8 @@ const { colorMode, toggleColorMode } = useColorMode();
     })
     .catch(error => alert(error.message));
   }
+  
+const { colorMode, toggleColorMode } = useColorMode();
  
   return (
      <NativeBaseProvider>
@@ -50,25 +52,25 @@ const { colorMode, toggleColorMode } = useColorMode();
             px={4}
             flex={1}
         >
-
         <HStack space={220} mt="5">
           <HStack>
              <Image source={logo}  style={{ width: 38, height: 40 }}/>
               <VStack>
-                <Text  color="gray.700" fontWeight="medium" ml="3" fontSize={16}>EXPO Docs</Text>
-                <Text fontSize={12} fontWeight="medium" ml="3">
+                <Text color="gray.500" fontWeight="medium" ml="3" fontSize={16}>EXPO Docs</Text>
+                <Text color="gray.500" fontSize={12} fontWeight="medium" ml="3">
                   User: {auth.currentUser?.email}
                 </Text>
             </VStack>
           </HStack>
             <VStack space={1}>
-              <Switch
+              {/* <Switch
                   isChecked={colorMode === "light" ? true : false}
                   onToggle={toggleColorMode}
                   aria-label={
                   colorMode === "light" ? "switch to dark mode" : "switch to light mode"
                   }
-              />
+              /> */}
+              <ToggleDarkMode/>
               <Link onClick={handleSignOut} mr="5">
                   <Text fontSize={12} fontWeight="medium" color="blue.500">
                     Log Out
@@ -300,3 +302,17 @@ const { colorMode, toggleColorMode } = useColorMode();
 
   )
 }
+
+function ToggleDarkMode() {
+  const { colorMode, toggleColorMode } = useColorMode();
+  return (
+    <Switch
+        isChecked={colorMode === "light" ? true : false}
+        onToggle={toggleColorMode}
+        aria-label={
+        colorMode === "light" ? "switch to dark mode" : "switch to light mode"
+        }
+    />
+  );
+}
+
