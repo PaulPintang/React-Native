@@ -51,6 +51,7 @@ const { colorMode, toggleColorMode } = useColorMode();
             _light={{ bg: "blueGray.50" }}
             px={4}
             flex={1}
+            style={{maxWidth: 465, margin: 'auto'}}
         >
         <HStack space={220} mt="5">
           <HStack>
